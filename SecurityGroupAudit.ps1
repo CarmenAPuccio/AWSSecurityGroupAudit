@@ -13,7 +13,7 @@
 
 $accessKeyID = "InsertYourAccessKey"
 $secretAccessKey = "InsertYourSecretKey"
-$region = "us-west-2"
+$region = "us-east-1"
 $logfile = "C:\Users\cpuccio\Desktop\SecurityGroupAudit_$(Get-Date -Format `"yyyyMMdd_hhmmss`").txt"
 
 try
@@ -30,7 +30,7 @@ try
     $rds = Get-RDSDBInstance -AccessKey $accessKeyID -Region $region -SecretKey $secretAccessKey
 
     # Create a HashTable to hold all Security Groups for lookups later.
-    $allSecurityGroups = @{}
+    #$allSecurityGroups = @{}
     # Create a HashTable for all Security Groups in use. This could be EC2 or RDS Security Groups.
     $securityGroupsInUse = @{}
     # Array for Nested Security Group ID's
@@ -173,6 +173,8 @@ try
         $ec2VpcFilter.Name = 'vpc-id'
         $ec2VpcFilter.Value = $id
 
+        # Create a HashTable to hold all Security Groups for lookups later.
+        $allSecurityGroups = @{}
         Write-Host -ForegroundColor Green "ALL EC2 SECURITY GROUPS FOR: $id"
         # Oddly enough, RDS Security Groups come back even though it's an EC2 call below.        
         $ec2SecurityGroups = Get-EC2SecurityGroup -AccessKey $accessKeyID -Region $region -SecretKey $secretAccessKey -Filter $ec2VpcFilter
