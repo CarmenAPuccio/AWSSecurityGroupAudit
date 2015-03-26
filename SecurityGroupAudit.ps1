@@ -29,8 +29,6 @@ try
     $vpc = Get-EC2Vpc -AccessKey $accessKeyID -Region $region -SecretKey $secretAccessKey
     $rds = Get-RDSDBInstance -AccessKey $accessKeyID -Region $region -SecretKey $secretAccessKey
 
-    # Create a HashTable to hold all Security Groups for lookups later.
-    #$allSecurityGroups = @{}
     # Create a HashTable for all Security Groups in use. This could be EC2 or RDS Security Groups.
     $securityGroupsInUse = @{}
     # Array for Nested Security Group ID's
